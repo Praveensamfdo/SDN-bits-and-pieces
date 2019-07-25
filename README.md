@@ -32,3 +32,54 @@ $ make
 $ sudo make install
 ```
 Source : [RyU QoS](https://osrg.github.io/ryu-book/en/html/rest_qos.html "RyU QoS")
+
+## MaxiNet installation guide
+
+------------
+
+- Download the installer.sh script.<br>
+`wget https://raw.githubusercontent.com/MaxiNet/MaxiNet/master/installer.sh`
+
+- Run installer.sh('yes' to all when prompted)<br>
+`./installer.sh`
+
+- Create the **MaxiNet.cfg** file in /etc and copy the following code.
+
+```bash
+; place this at ~/.MaxiNet.cfg
+[all]
+password = pravsam
+controller = 130.127.133.100:6634
+logLevel = INFO        ; Either CRITICAL, ERROR, WARNING, INFO  or DEBUG
+port_ns = 9090         ; Nameserver port
+port_sshd = 5345       ; Port where MaxiNet will start an ssh server on each worker
+runWith1500MTU = False ; Set this to True if your physical network can not handle MTUs >1500.
+useMultipleIPs = 0     ; for RSS load balancing. Set to n > 0 to use multiple IP addresses per worker. More information on this feature can be found at MaxiNets github Wiki.
+deactivateTSO = True   ; Deactivate TCP-Segmentation-Offloading at the emulated hosts.
+sshuser = root         ; On Debian set this to root. On ubuntu set this to user which can do passwordless sudo
+usesudo = True         ; If sshuser is set to something different than root set this to True.
+useSTT = False         ; enables stt usage for tunnels. Only usable with OpenVSwitch. Bandwithlimitations etc do not work on STT tunnels!
+
+[FrontendServer]
+ip = 130.127.133.83
+threadpool = 256       ; increase if more workers are needed (each Worker requires 2 threads on the FrontendServer)
+
+[ubuntu-vm1]
+ip = 130.127.133.83
+share = 1
+
+[ubuntu-vm2]
+ip = 130.127.133.52
+share = 1
+```
+
+- Change the controller IP, password, worker IPs and front-end server IP accrodingly.
+
+- Use the following command to start the front-end server.<br>
+`screen -d -m -S MaxiNetFrontend MaxiNetFrontendServer`
+
+- Use the following command to start a worker.<br>
+`screen -d -m -S MaxiNetWorker sudo MaxiNetWorker`
+
+Source : [MaxiNet](https://maxinet.github.io/ "MaxiNet")
+
