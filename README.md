@@ -83,3 +83,16 @@ share = 1
 
 Source : [MaxiNet](https://maxinet.github.io/ "MaxiNet")
 
+## Fogbed installation guide
+
+------------
+
+- Install cmake.<br>
+`apt-get install cmake`
+
+- Install importlib-metadata.<br>
+`pip install importlib-metadata==0.12`
+
+- Finally install Fogbed using bare-metal installation given in the GitHub page.
+
+Source : [Fogbed](https://github.com/fogbed/fogbed "Fogbed")
