@@ -96,3 +96,24 @@ Source : [MaxiNet](https://maxinet.github.io/ "MaxiNet")
 - Finally install Fogbed using bare-metal installation given in the GitHub page.
 
 Source : [Fogbed](https://github.com/fogbed/fogbed "Fogbed")
+
+## Enable ssh access in Containernet Docker containers
+
+------------
+
+- Install ssh server.<br>
+`apt install openssh-server`
+
+- Add the following configurations to **/etc/ssh/sshd_config**.
+```bash
+PermitRootLogin yes
+PasswordAuthentication yes
+UseLogin yes
+RSAAuthentication no
+PubkeyAuthentication no
+```
+- Restart the **ssh** service.<br>
+`service ssh restart`
+
+- Change the root password.<br>
+`passwd root`
