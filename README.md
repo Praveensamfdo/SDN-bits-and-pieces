@@ -117,3 +117,11 @@ PubkeyAuthentication no
 
 - Change the root password.<br>
 `passwd root`
+
+## Using reinforcement learning in a Mininet environment
+
+------------
+
+- It is not required to setup an external SDN controller, when using SDN with reinforcement learning. 
+- Except the environment can be defined along side with the controller in a single python script.
+- Please refer to the [this example](https://github.com/amitnilams/sdwan-gym "this example") for implementation details.
